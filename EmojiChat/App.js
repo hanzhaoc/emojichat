@@ -1,12 +1,16 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
+import HomeScreen from './screens/HomeScreen';
+import io from 'socket.io-client';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+  useEffect(() => {
+    io("http://172.16.77.11:3001")
+  },[])
+
+  console.disableYellowBox = true;
+
+  return (<HomeScreen />);
 }
 
 const styles = StyleSheet.create({
