@@ -9,25 +9,13 @@ export default function HomeScreen() {
   useEffect(() => {
     socket.current = io("http://192.168.5.74:3001");
     socket.current.on('message', message => {
-      const testMessage = {  
-        _id: 3,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        }
-      };
-      testMessage.text = message;
-      setRecvMessages(prevState => GiftedChat.append(prevState, testMessage))
+      setRecvMessages(prevState => GiftedChat.append(prevState, message));
     })
   },[])
 
   const onSend = (messages) => {
-    // console.log(messages);
-    // console.log(messages[0]);
-    socket.current.emit('message', messages[0].text)
+    socket.current.emit('message', messages[0].text);
+    setRecvMessages(prevState => GiftedChat.append(prevState, messages[0]));
   }
 
   return (
